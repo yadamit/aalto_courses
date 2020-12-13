@@ -1,0 +1,11 @@
+0
+
+Looks good!
+
+If you're able to express the convolution as matrix multiplication
+(hint: im2col) you might be able to use some of the same techniques
+used for matrix multiplication discussed in the Week 3 of the course here.
+
+--
+Grading by:
+sspilsbury

@@ -1,0 +1,37 @@
+-1
+
+You have some invalid memory accesses in your myppkernel:
+
+cp      6000    6000    ========= CUDA-MEMCHECK
+========= Invalid __global__ read of size 8
+=========     at 0x00000088 in myppkernel(float*, float*, int, int, int, int, double*, double*)
+=========     by thread (63,0,0) in block (6000,0,0)
+=========     Address 0x712f6bb80 is out of bounds
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame:/usr/lib/x86_64-linux-gnu/libcuda.so.1 (cuLaunchKernel + 0x2c5) [0x27d295]
+=========     Host Frame:./cp-benchmark [0x25c52]
+=========     Host Frame:./cp-benchmark [0x25e47]
+=========     Host Frame:./cp-benchmark [0x5a205]
+=========     Host Frame:./cp-benchmark [0x9596]
+=========     Host Frame:./cp-benchmark [0x7f14]
+=========     Host Frame:./cp-benchmark [0x7985]
+=========     Host Frame:/lib/x86_64-linux-gnu/libc.so.6 (__libc_start_main + 0xe7) [0x21b97]
+=========     Host Frame:./cp-benchmark [0x7b7a]
+
+I think it happens here:
+
+ >  double m = mu[bx], s = std[bx];
+
+In the line below you check if bx is in range before reading from
+the array, but on this line you don't check. I saw that mu
+and std are both the size of ny when cudaMalloc'd, so that would
+explain it (bx and go up to naby).
+
+As for your performance, you missed out on the last two points
+since you were computing the entire result matrix instead of the lower
+triangle. A quick "if (by > bx) return;" check in the kernel fixed that -
+when I re-ran it I got 10 points.
+
+--
+Grading by:
+sspilsbury

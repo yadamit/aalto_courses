@@ -1,0 +1,9 @@
+0
+
+Looks good!
+
+For better performance you could try using float4_t or float8_t
+
+--
+Grading by:
+ivan

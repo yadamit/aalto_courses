@@ -1,0 +1,10 @@
+0
+
+Looks good!
+
+In the future CP exercises it might be helpful to create a new array for the
+data and first normalize it to have mean 0 and then sum of squares 1.
+
+--
+Grading by:
+henkkuli

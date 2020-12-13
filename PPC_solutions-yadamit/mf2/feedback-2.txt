@@ -1,0 +1,9 @@
+-1
+
+Looks good! Sadly I have to reduce 1 point for the nested ```Pragma omp parallel for```.
+Please visit http://ppc.cs.aalto.fi/ch3/nested/ for more details
+
+
+--
+Grading by:
+jussi
